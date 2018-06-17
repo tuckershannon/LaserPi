@@ -6,22 +6,23 @@ from time import sleep
 import math
 import sys
 from datetime import datetime
-import numpy as np
-
 GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
-StepPins = [4,17,27,22]
-StepPins2 = [5,6,13,19]
+StepPins2 = [4,17,27,22]
+StepPins = [5,6,13,19]
 aio = Client('e69763443f284a9cbcd7463ac7d93481')
 
-messages = ["Tuck's Projects","Laser-Pi"]
-#message2 = "University"
-
+message = "71dq"
+#message = "717177171"
+#message = datetime.now().strftime('%H:%M')
+#message = "TuckerShannon"
 for pin in StepPins:
+  print pin
   GPIO.setup(pin,GPIO.OUT)
   GPIO.output(pin, False)
 
 for pin in StepPins2:
+  print pin
   GPIO.setup(pin,GPIO.OUT)
   GPIO.output(pin, False)
 
@@ -37,11 +38,12 @@ Seq[4] = [0,0,1,0]
 Seq[5] = [0,0,1,1]
 Seq[6] = [0,0,0,1]
 Seq[7] = [1,0,0,1]
-
+#StepPins = [4,17,27,22]
+#StepPins2 = [5,6,13,19]
 
 nSteps = range(0,2)
 
-with open('cursive.cxf', 'r') as myFile:
+with open('weather.cxf', 'r') as myFile:
     data = myFile.readlines()
 
 cordDict = {}
@@ -65,36 +67,17 @@ for x in range(0,len(data)):
             radius = float(str2[2])
             startAngle = float(str2[3])
             endAngle = float(str2[4])
-            while int(startAngle) != int(endAngle):
+            while abs(startAngle - endAngle) > 1:
                 x1 = math.cos(math.radians(startAngle)) * radius + centerX
                 y1 = math.sin(math.radians(startAngle)) * radius + centerY
-                startAngle += 1
-                if startAngle > 360:
-                    startAngle = 0
+                if startAngle < endAngle:
+                    startAngle += 1
+                if startAngle > endAngle:
+                    startAngle =- 1
                 x2 = math.cos(math.radians(startAngle)) * radius + centerX
                 y2 = math.sin(math.radians(startAngle)) * radius + centerY
                 points.append([x1,y1,x2,y2])
             cordDict[key] = points
-
-
-        if 'AR' == stuff[0]:
-            str2 = stuff[1].split(',')
-            centerX = float(str2[0])
-            centerY = float(str2[1])
-            radius = float(str2[2])
-            startAngle = float(str2[3])
-            endAngle = float(str2[4])
-            while int(startAngle) != int(endAngle):
-                x1 = math.cos(math.radians(startAngle)) * radius + centerX
-                y1 = math.sin(math.radians(startAngle)) * radius + centerY
-                startAngle -= 1
-                if startAngle < 0:
-                    startAngle = 360
-                x2 = math.cos(math.radians(startAngle)) * radius + centerX
-                y2 = math.sin(math.radians(startAngle)) * radius + centerY
-                points.append([x1,y1,x2,y2])
-            cordDict[key] = points
-
 
 
 def laser(onOff):
@@ -102,7 +85,6 @@ def laser(onOff):
         GPIO.output(14,True)
     else:
         GPIO.output(14,False)
-
 def takeStep(motor,direction,seqStep):
         if (motor == 1):
             for pin in range(0, 4):
@@ -119,7 +101,7 @@ def takeStep(motor,direction,seqStep):
                 else:
                     GPIO.output(xpin, False)
 
-        sleep(0.001)
+        sleep(0.002)
 
         if(direction == 1):
             if (motor == 2):
@@ -143,36 +125,42 @@ def takeStep(motor,direction,seqStep):
 
 
 
+seqStepY = 0
+seqStepX = 0
+radPerStep = (2.0 * math.pi)/4076.0;
+currentTheta = 0.0;
+currentPhi = 0.0;
+currentX = 0.0;
+currentY = 0.0;
 
+currentDX = math.sin(radPerStep) / math.cos(currentTheta)
+currentDY = math.sin(radPerStep) / math.cos(currentPhi)
 
-def main(message):
-    seqStepY = 0
-    seqStepX = 0
-    radPerStep = (2.0 * math.pi)/4076.0;
-    currentTheta = 0.0001;
-    currentPhi = 0.0001;
-    currentX = 0.0;
-    currentY = 0.0;
+while True:
+    #aio.send('weather',0)
+    #data = aio.receive('weather')
+    #while data.value != '1':
+    #    print data.value
+    #    data = aio.receive('weather')
 
-    currentDX = math.sin(radPerStep) / math.cos(currentTheta)
-    currentDY = math.sin(radPerStep) / math.cos(currentPhi)
     startX = 0
     letterStart = 0.0
-    startPosition = -(((0.4 / 3.0) *  ((float(len(list(message)))/2.0))))
+    startPosition = -(((0.4 / 2.5) *  ((float(len(list(message)))/2.0))))
+    letterCount = 0.0
     for letter in list(message):
         currentXLetter = 0.0
         farXLetter = 0.0
         if letter == " ":
-            farXLetter = 0.05
+            farXLetter = 0.1
         else:
             letter = cordDict[letter]
             for lineDraw in letter:
                 for x in range(0,2):
                     laser(x)
-                    nextX = float(lineDraw[x*2])  * (0.4 / 18) +  letterStart + startPosition
-                    nextY = float(lineDraw[x*2+1])  * (0.4 / 18) #+ (0.30)# * (len(messages)/2.0)
-                    if (float(lineDraw[x*2])  * (0.4 / 18)) > farXLetter:
-                        farXLetter = (float(lineDraw[x*2])  * (0.4 / 18))
+                    nextX = float(lineDraw[x*2])  * (0.4 / 4) +  letterStart + startPosition
+                    nextY = float(lineDraw[x*2+1])  * (0.4 / 4) # + (0.30) * (len(message)/2.0-lol)
+                    if (float(lineDraw[x*2])  * (0.4 / 4)) > farXLetter:
+                        farXLetter = (float(lineDraw[x*2])  * (0.4 / 4))
                     dx = currentX - nextX
                     dy = currentY - nextY
                     stepsX = abs(dx / currentDX) * 2
@@ -203,10 +191,12 @@ def main(message):
                                 currentPhi = currentPhi - radPerStep
 
 
+
         laser(0)
         letterStart = letterStart + farXLetter + 0.05
 
-
+    #for x in range(0,100):
+    #    seqStepLR = takeStep(2,1,seqStepLR)
 
     while (abs(nSteps[0]) > 0)  or (abs(nSteps[1]) > 0):
         if (nSteps[0] < 0):
@@ -217,17 +207,15 @@ def main(message):
             seqStepY = takeStep(1,1,seqStepY)
         elif (nSteps[1] > 0):
             seqStepY = takeStep(1,2,seqStepY)
-
+        print "x Steps: ",nSteps[0]
+        print "y Steps: ",nSteps[1]
     currentX = 0;
     currentY = 0;
-    currentTheta = 0.0001
-    currentPhi = 0.0001
+    currentTheta = 0
+    currentPhi = 0
 
 
     for pin in range(0,4):
         GPIO.output(StepPins[pin],False)
         GPIO.output(StepPins2[pin],False)
-
-
-if __name__=='__main__':
-    sys.exit(main(sys.argv[1]))
+    break

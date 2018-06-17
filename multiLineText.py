@@ -10,11 +10,11 @@ import numpy as np
 
 GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
-StepPins2 = [4,17,27,22]
-StepPins = [5,6,13,19]
+StepPins = [4,17,27,22]
+StepPins2 = [5,6,13,19]
 aio = Client('e69763443f284a9cbcd7463ac7d93481')
 
-messages = ["Tuck's Projects","Laser-Pi"]
+messages = ["Hola Konredus!","desde", "los Ustados Unidos"]
 #message2 = "University"
 
 for pin in StepPins:

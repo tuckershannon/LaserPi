@@ -13,8 +13,8 @@ GPIO.setwarnings(False)
 GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
 
-StepPins2 = [4,17,27,22]
-StepPins = [5,6,13,19]
+StepPins = [4,17,27,22]
+StepPins2 = [5,6,13,19]
 
 
 for pin in StepPins:
