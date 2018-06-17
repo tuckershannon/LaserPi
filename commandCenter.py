@@ -1,8 +1,13 @@
-# Example of using the MQTT client class to subscribe to a feed and print out
-# any changes made to the feed.  Edit the variables below to configure the key,
-# username, and feed to subscribe to for changes.
 
-# Import standard python modules.
+"""
+laserPi by Tucker Shannon 2018
+thingiverse 3d print files:
+https://www.thingiverse.com/thing:2965798
+youTube tutorial:
+https://www.youtube.com/watch?v=Ll1u_rkKWxM&t=2s
+"""
+
+
 import sys
 
 # Import Adafruit IO MQTT client.

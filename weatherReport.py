@@ -1,4 +1,13 @@
 #!/usr/bin/env python
+"""
+laserPi by Tucker Shannon 2018
+thingiverse 3d print files:
+https://www.thingiverse.com/thing:2965798
+youTube tutorial:
+https://www.youtube.com/watch?v=Ll1u_rkKWxM&t=2s
+"""
+
+
 
 import RPi.GPIO as GPIO
 import numpy as np
