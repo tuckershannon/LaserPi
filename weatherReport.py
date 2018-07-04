@@ -163,7 +163,7 @@ def takeStep(motor,direction,seqStep):
 
 
 
-weatherDict = readDict('/home/pi/weather.cxf')
+weatherDict = readDict('/home/pi/LaserPi/weather.cxf')
 
 def main():
     seqStepY = 0
