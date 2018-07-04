@@ -160,7 +160,7 @@ def takeStep(motor,direction,seqStep):
 
 
 
-cordDict = readDict('/home/pi/cursive.cxf')
+cordDict = readDict('/home/pi/LaserPi/font.cxf')
 
 def main():
     seqStepY = 0
