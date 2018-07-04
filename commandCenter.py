@@ -20,8 +20,8 @@ import analogReport
 import laserMessage
 
 # Set to your Adafruit IO key & username below.
-ADAFRUIT_IO_KEY      = 'keyHere'
-ADAFRUIT_IO_USERNAME = 'usernameHere'  # See https://accounts.adafruit.com
+ADAFRUIT_IO_KEY      = sys.argv[2]
+ADAFRUIT_IO_USERNAME = sys.argv[1]  # See https://accounts.adafruit.com
                                                     # to find your username.
 
 # Set to the ID of the feed to subscribe to for updates.
@@ -45,7 +45,7 @@ def disconnected(client):
 
 def message(client, feed_id, payload, retain):
     if payload == '0':
-        weatherReport.main()
+        weatherReport.main(sys.argv[3])
     elif payload == '1':
         analogReport.main()
         print "yes"
