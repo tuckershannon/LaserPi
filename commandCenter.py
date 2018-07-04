@@ -20,8 +20,8 @@ import analogReport
 import laserMessage
 
 # Set to your Adafruit IO key & username below.
-ADAFRUIT_IO_KEY      = 'keyhere'
-ADAFRUIT_IO_USERNAME = 'tuckerPi'  # See https://accounts.adafruit.com
+ADAFRUIT_IO_KEY      = 'keyHere'
+ADAFRUIT_IO_USERNAME = 'usernameHere'  # See https://accounts.adafruit.com
                                                     # to find your username.
 
 # Set to the ID of the feed to subscribe to for updates.
