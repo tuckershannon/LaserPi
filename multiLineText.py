@@ -21,10 +21,10 @@ GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
 StepPins = [4,17,27,22]
 StepPins2 = [5,6,13,19]
-aio = Client('e69763443f284a9cbcd7463ac7d93481')
+aio = Client('client key here')
 
-messages = ["Hola Konredus!","desde", "los Ustados Unidos"]
-#message2 = "University"
+messages = ["This is","multi-line", "text"]
+
 
 for pin in StepPins:
   print pin
@@ -166,17 +166,6 @@ currentDX = math.sin(radPerStep) / math.cos(currentTheta)
 currentDY = math.sin(radPerStep) / math.cos(currentPhi)
 
 while True:
-    #data = aio.receive('textBox')
-    #messages = data.value
-    #while data.value == messages:
-    #    messages = aio.receive('textBox').value
-
-    #print data.value
-    #data = aio.receive('weather')
-
-
-
-
     for lol in range(0,len(messages)):
         startX = 0
         letterStart = 0.0
