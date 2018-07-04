@@ -175,9 +175,9 @@ def main():
     currentY = 0.0;
     currentDX = math.sin(radPerStep) / math.cos(currentTheta)
     currentDY = math.sin(radPerStep) / math.cos(currentPhi)
-    lookup = weather.lookup(2385382)
-    condition = lookup.condition()
-    messages = [condition.temp()+"o"+weatherConditions[condition.code()]]
+    lookup = weather.lookup(sys.argv[1])
+    condition = lookup.condition
+    messages = [condition.temp+"o"+weatherConditions[condition.code]]
     for lol in range(0,len(messages)):
         startX = 0
         letterStart = 0.0
