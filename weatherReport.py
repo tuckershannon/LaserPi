@@ -165,7 +165,7 @@ def takeStep(motor,direction,seqStep):
 
 weatherDict = readDict('/home/pi/LaserPi/weather.cxf')
 
-def main():
+def main(weatherCode):
     seqStepY = 0
     seqStepX = 0
     radPerStep = (2.0 * math.pi)/4076.0;
@@ -175,7 +175,7 @@ def main():
     currentY = 0.0;
     currentDX = math.sin(radPerStep) / math.cos(currentTheta)
     currentDY = math.sin(radPerStep) / math.cos(currentPhi)
-    lookup = weather.lookup(sys.argv[1])
+    lookup = weather.lookup(weatherCode)
     condition = lookup.condition
     messages = [condition.temp+"o"+weatherConditions[condition.code]]
     for lol in range(0,len(messages)):
