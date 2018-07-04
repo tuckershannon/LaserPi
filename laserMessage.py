@@ -21,10 +21,7 @@ GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
 StepPins = [4,17,27,22]
 StepPins2 = [5,6,13,19]
-aio = Client('e69763443f284a9cbcd7463ac7d93481')
 
-messages = ["Tuck's Projects","Laser-Pi"]
-#message2 = "University"
 
 for pin in StepPins:
   GPIO.setup(pin,GPIO.OUT)
