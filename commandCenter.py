@@ -25,7 +25,7 @@ ADAFRUIT_IO_USERNAME = sys.argv[1]  # See https://accounts.adafruit.com
                                                     # to find your username.
 
 # Set to the ID of the feed to subscribe to for updates.
-FEED_ID = 'analog'
+FEED_ID = 'laser'
 
 
 # Define callback functions which will be called when certain events happen.
