@@ -43,7 +43,7 @@ def disconnected(client):
     print('Disconnected from Adafruit IO!')
     sys.exit(1)
 
-def message(client, feed_id, payload, retain):
+def message(client, feed_id, payload):
     if payload == '0':
         weatherReport.main(sys.argv[3])
     elif payload == '1':
