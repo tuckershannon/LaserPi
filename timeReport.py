@@ -14,7 +14,7 @@ from time import sleep
 import math
 import sys
 from datetime import datetime
-import numpy as np
+
 
 
 GPIO.setwarnings(False)
