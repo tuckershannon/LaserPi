@@ -5,6 +5,8 @@ thingiverse 3d print files:
 https://www.thingiverse.com/thing:2965798
 youTube tutorial:
 https://www.youtube.com/watch?v=Ll1u_rkKWxM&t=2s
+
+To laser write a multi-line message enter your message in the "message variable below"
 """
 
 
@@ -16,13 +18,17 @@ import math
 import sys
 from datetime import datetime
 
+
+#Enter your message(s) here
+messages = ["This is","multi-line", "text"]
+
 GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
 StepPins = [4,17,27,22]
 StepPins2 = [5,6,13,19]
 aio = Client('client key here')
 
-messages = ["This is","multi-line", "text"]
+
 
 
 for pin in StepPins:
