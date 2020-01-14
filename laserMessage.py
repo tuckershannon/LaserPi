@@ -5,6 +5,11 @@ thingiverse 3d print files:
 https://www.thingiverse.com/thing:2965798
 youTube tutorial:
 https://www.youtube.com/watch?v=Ll1u_rkKWxM&t=2s
+
+
+To laser write a message add a command line arugment like this:
+python laserMessage.py "your message here"
+
 """
 
 
