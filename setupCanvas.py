@@ -17,12 +17,12 @@ import curses
 
 
 class setUpLaser:
-    __laserPi = laserPiFuncs.laserPi()
+    laserPi = laserPiFuncs.laserPi()
     # get the curses screen window
-    __screen = curses.initscr()
+    screen = curses.initscr()
 
-    __motorStepSequence1 = 0
-    __motorStepSequence2 = 0
+    motorStepSequence1 = 0
+    motorStepSequence2 = 0
 
 
 
