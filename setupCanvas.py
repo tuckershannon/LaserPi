@@ -54,7 +54,7 @@ class setUpLaser:
         curses.cbreak()
 
         # map arrow keys to special values
-       self.screen.keypad(True)
+        self.screen.keypad(True)
 
     def __endCurses(self):
         # shut down cleanly
@@ -90,4 +90,3 @@ class setUpLaser:
 
 startSetup = setUpLaser()
 startSetup.setUpCanvas()
-startSetup.
