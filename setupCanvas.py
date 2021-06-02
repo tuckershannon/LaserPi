@@ -34,7 +34,7 @@ class setUpLaser:
 
 
 
-    def __useKeys(self):
+    def useKeys(self):
         self.setupCurses()
         while True:
             char = self.screen.getch()
@@ -45,7 +45,7 @@ class setUpLaser:
 
         self.endCurses()
 
-    def __setupCurses(self):
+    def setupCurses(self):
 
         # turn off input echoing
         curses.noecho()
@@ -56,7 +56,7 @@ class setUpLaser:
         # map arrow keys to special values
         self.screen.keypad(True)
 
-    def __endCurses(self):
+    def endCurses(self):
         # shut down cleanly
         curses.nocbreak()
         self.screen.keypad(0)
@@ -64,7 +64,7 @@ class setUpLaser:
         curses.endwin()
 
 
-    def __inputHandler(self, char):
+    def inputHandler(self, char):
         if char == ord('q'):
             # if q is pressed quit
             return "finished"
