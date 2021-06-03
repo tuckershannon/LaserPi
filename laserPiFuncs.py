@@ -51,20 +51,19 @@ class laserPi:
 
     def takeStep(self, motor, direction, seqStep):
         if (motor == 1):
-            for pin in range(0, 4):
+            for pin in range(4):
                 xpin = self.StepPins2[pin]
                 if self.Seq[seqStep][pin] != 0:
                     GPIO.output(xpin, True)
                 else:
                     GPIO.output(xpin, False)
         elif (motor == 2):
-            for pin in range(0, 4):
+            for pin in range(4):
                 xpin = self.StepPins[pin]
                 if self.Seq[seqStep][pin] != 0:
                     GPIO.output(xpin, True)
                 else:
                     GPIO.output(xpin, False)
-
         sleep(0.001)
 
         if (direction == 1):
