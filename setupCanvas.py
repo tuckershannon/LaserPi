@@ -20,17 +20,20 @@ class setUpLaser:
 
     def setUpCanvas(self):
         self.laserPi.setUpPins()
-        self.useKeys()
-        # self.startInstructions()
+
+        self.startInstructions()
 
     def startInstructions(self):
-        self.printCenter("Testing")
+        self.printCenter(["Aim laser straight ahead, level with the horizon", "Press 1 when finished"])
+        self.waitForKey('1')
+        self.printCenter(["Aim laser to top left of canvas", "Press 2 when finished"])
+        self.waitForKey('2')
 
-    def useKeys(self):
+    def waitForKey(self, key):
         self.setupCurses()
         while True:
             char = self.screen.getch()
-            response = self.inputHandler(char)
+            response = self.inputHandler(char, key)
             if response == "finished":
                 break
 
@@ -49,7 +52,8 @@ class setUpLaser:
     def printCenter(self, message):
         dims = self.screen.getmaxyx()
         self.screen.clear()
-        self.screen.addstr(int(int(dims[0]) / 2 - 1), int(int(dims[1]) / 2) - int(len(message)), message)
+        for x in enumerate(message):
+            self.screen.addstr(int(int(dims[0]) / 2 - 1 + x), int(int(dims[1]) / 2) - int(len(message[x])/2), message[x])
         self.screen.refresh()
 
     def endCurses(self):
@@ -59,11 +63,14 @@ class setUpLaser:
         curses.echo()
         curses.endwin()
 
-    def inputHandler(self, char):
+    def inputHandler(self, char, key):
+        if char == ord(key):
+            return "finished"
         if char == ord('q'):
             # if q is pressed quit
             self.endCurses()
-            return "finished"
+            exit(0)
+            return "quit"
         if char == ord('w'):
             # if q is pressed quit
             self.laserPi.laser(True)
