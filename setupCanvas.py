@@ -21,7 +21,7 @@ class setUpLaser:
     def setUpCanvas(self):
         self.laserPi.setUpPins()
         self.useKeys()
-        self.startInstructions()
+        # self.startInstructions()
 
     def startInstructions(self):
         self.printCenter("Testing")
@@ -49,7 +49,7 @@ class setUpLaser:
     def printCenter(self, message):
         dims = self.screen.getmaxyx()
         self.screen.clear()
-        self.screen.addstr(int(int(dims[0]) / 2 - 1), int(int(dims[1])) - int(len(message)), message)
+        self.screen.addstr(int(int(dims[0]) / 2 - 1), int(int(dims[1]) / 2) - int(len(message)), message)
         self.screen.refresh()
 
     def endCurses(self):
