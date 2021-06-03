@@ -75,16 +75,16 @@ class setUpLaser:
             self.laserPi.laser(False)
         elif char == curses.KEY_RIGHT:
             self.screen.addstr(0, 0, 'right ')
-            self.motorStepSequence1 = self.laserPi.takeStep(1 ,0 ,self.motorStepSequence1)
+            self.motorStepSequence1 = self.laserPi.takeStep(2 ,0 ,self.motorStepSequence1)
         elif char == curses.KEY_LEFT:
             self.screen.addstr(0, 0, 'left ')
-            self.motorStepSequence1 = self.laserPi.takeStep(1 ,1 ,self.motorStepSequence1)
+            self.motorStepSequence1 = self.laserPi.takeStep(2 ,1 ,self.motorStepSequence1)
         elif char == curses.KEY_UP:
             self.screen.addstr(0, 0, 'up ')
-            self.motorStepSequence2 = self.laserPi.takeStep(0 ,0 ,self.motorStepSequence2)
+            self.motorStepSequence2 = self.laserPi.takeStep(1 ,0 ,self.motorStepSequence2)
         elif char == curses.KEY_DOWN:
             self.screen.addstr(0, 0, 'down ')
-            self.motorStepSequence2 = self.laserPi.takeStep(0 ,1 ,self.motorStepSequence2)
+            self.motorStepSequence2 = self.laserPi.takeStep(1 ,1 ,self.motorStepSequence2)
 
 
 
