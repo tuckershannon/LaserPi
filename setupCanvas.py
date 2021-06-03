@@ -52,7 +52,7 @@ class setUpLaser:
     def printCenter(self, message):
         dims = self.screen.getmaxyx()
         self.screen.clear()
-        for x in enumerate(message):
+        for x, _ in enumerate(message):
             self.screen.addstr(int(int(dims[0]) / 2 - 1 + x), int(int(dims[1]) / 2) - int(len(message[x])/2), message[x])
         self.screen.refresh()
 
