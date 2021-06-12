@@ -99,7 +99,7 @@ class setUpLaser:
                 self.motor2StepCount -= 1
             # self.screen.addstr(0, 0, 'down ')
             self.motorStepSequence2 = self.laserPi.takeStep(1, 0, self.motorStepSequence2)
-        self.printCenter("Press Q TO QUIT")
+
 
 
 startSetup = setUpLaser()
