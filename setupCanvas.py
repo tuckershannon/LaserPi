@@ -21,6 +21,10 @@ class setUpLaser:
     motorStepSequence2 = 0
     didStartCounting = False
 
+    topLeft = [0,0]
+    bottomRight = [0,0]
+
+
     def setUpCanvas(self):
         self.laserPi.setUpPins()
 
@@ -30,8 +34,19 @@ class setUpLaser:
         self.printCenter(["Aim laser straight ahead, level with the horizon", "Press 1 when finished", "Press Q to QUIT"])
         self.waitForKey('1')
         self.didStartCounting = True
-        self.printCenter(["Aim laser to top left of canvas", "Press 2 when finished", "Press Q to QUIT"])
-        self.waitForKey('2')
+        self.printCenter(["Aim laser to top left of canvas", "Press 1 when finished", "Press Q to QUIT"])
+        self.waitForKey('1')
+        self.topLeft = [self.motor1StepCount, self.motor2StepCount]
+        self.printCenter(["Aim laser to bottom right canvas", "Press 1 when finished", "Press Q to QUIT"])
+        self.waitForKey('1')
+        self.bottomRight = [self.motor1StepCount, self.motor2StepCount]
+        self.writeCustomScreenSettingsToFile()
+
+
+    def writeCustomScreenSettingsToFile(self):
+        print("Writing custom screen")
+        print(self.topLeft)
+        print(self.bottomRight)
 
     def waitForKey(self, key):
         self.setupCurses()
@@ -68,6 +83,7 @@ class setUpLaser:
 
     def inputHandler(self, char, key):
         if char == ord(key):
+            self.endCurses()
             return "finished"
         if char == ord('q'):
             # if q is pressed quit
