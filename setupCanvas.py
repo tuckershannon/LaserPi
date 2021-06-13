@@ -81,6 +81,8 @@ class setUpLaser:
         curses.echo()
         curses.endwin()
 
+
+    def takeXSteps(self, x):
     def inputHandler(self, char, key):
         if char == ord(key):
             self.endCurses()
@@ -98,11 +100,11 @@ class setUpLaser:
         elif char == curses.KEY_RIGHT:
             # self.screen.addstr(0, 0, 'right ')
             if self.didStartCounting:
-                self.motor2StepCount += 1
+                self.motor2StepCount -= 1
             self.motorStepSequence1 = self.laserPi.takeStep(2, 1, self.motorStepSequence1)
         elif char == curses.KEY_LEFT:
             if self.didStartCounting:
-                self.motor2StepCount -= 1
+                self.motor2StepCount += 1
             # self.screen.addstr(0, 0, 'left ')
             self.motorStepSequence1 = self.laserPi.takeStep(2, 0, self.motorStepSequence1)
         elif char == curses.KEY_UP:
@@ -112,9 +114,14 @@ class setUpLaser:
             self.motorStepSequence2 = self.laserPi.takeStep(1, 1, self.motorStepSequence2)
         elif char == curses.KEY_DOWN:
             if self.didStartCounting:
-                self.motor2StepCount -= 1
+                self.moto12StepCount -= 1
             # self.screen.addstr(0, 0, 'down ')
             self.motorStepSequence2 = self.laserPi.takeStep(1, 0, self.motorStepSequence2)
+        self.printCenter(["Step1: ", self.motor1StepCount, " Step2: ", self.motor2StepCount)
+
+
+
+
 
 
 
