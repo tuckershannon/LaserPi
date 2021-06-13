@@ -31,6 +31,13 @@ class laserPi:
     nSteps = range(0, 2)
 
 
+
+    def loadSettings(self):
+        f = open("ScreenConfig.txt", "r")
+        canvasMap = f.read()
+        print(canvasMap)
+
+
     def setUpPins(self):
         GPIO.setwarnings(False)
         GPIO.cleanup()

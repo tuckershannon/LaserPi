@@ -11,6 +11,7 @@ import curses
 
 
 class setUpLaser:
+
     laserPi = laserPiFuncs.laserPi()
     # get the curses screen window
     screen = curses.initscr()
@@ -49,6 +50,11 @@ class setUpLaser:
         f.write(str(self.topLeft[0]) + '\n' + str(self.bottomRight[0]) + '\n' + str(self.topLeft[1])+ '\n' + str(self.bottomRight[1]))
         print(self.topLeft)
         print(self.bottomRight)
+
+        self.returnToHome()
+
+    def returnToHome(self):
+        print("Returning to home")
 
     def waitForKey(self, key):
         self.setupCurses()
@@ -123,7 +129,6 @@ class setUpLaser:
             self.takeXSteps(1, 1, xSteps)
         elif char == curses.KEY_DOWN:
             self.takeXSteps(1, 0, xSteps)
-        self.printCenter(["StepX: ", str(self.xMotorStepCount), " StepY: ", str(self.yMotorStepCount)])
 
 
 startSetup = setUpLaser()
