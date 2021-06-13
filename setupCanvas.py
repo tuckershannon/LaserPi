@@ -86,16 +86,16 @@ class setUpLaser:
                 self.motorStepSequence1 = self.laserPi.takeStep(motor, direction, self.motorStepSequence1)
                 if self.didStartCounting:
                     if direction == 0:
-                        self.motor1StepCount += 1
-                    else:
                         self.motor1StepCount -= 1
+                    else:
+                        self.motor1StepCount += 1
             if motor == 2:
                 self.motorStepSequence2 = self.laserPi.takeStep(motor, direction, self.motorStepSequence2)
                 if self.didStartCounting:
                     if direction == 0:
-                        self.motor2StepCount += 1
-                    else:
                         self.motor2StepCount -= 1
+                    else:
+                        self.motor2StepCount += 1
 
     def inputHandler(self, char, key):
         xSteps = 5
