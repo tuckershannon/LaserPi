@@ -30,12 +30,16 @@ class laserPi:
     stepsPerRev = 4096
     nSteps = range(0, 2)
 
-
+    xLimits = [0, 0]
+    yLimits = [0, 0]
 
     def loadSettings(self):
         f = open("ScreenConfig.txt", "r")
         canvasMap = f.read().splitlines()
-        print(canvasMap)
+        self.xLimits = [canvasMap[0],canvasMap[1]]
+        self.yLimits = [canvasMap[2], canvasMap[3]]
+        print(self.xLimits)
+        print(self.yLimits)
 
 
     def setUpPins(self):
