@@ -21,9 +21,8 @@ class setUpLaser:
     motorStepSequence2 = 0
     didStartCounting = False
 
-    topLeft = [0,0]
-    bottomRight = [0,0]
-
+    topLeft = [0, 0]
+    bottomRight = [0, 0]
 
     def setUpCanvas(self):
         self.laserPi.setUpPins()
@@ -31,7 +30,8 @@ class setUpLaser:
         self.startInstructions()
 
     def startInstructions(self):
-        self.printCenter(["Aim laser straight ahead, level with the horizon", "Press 1 when finished", "Press Q to QUIT"])
+        self.printCenter(
+            ["Aim laser straight ahead, level with the horizon", "Press 1 when finished", "Press Q to QUIT"])
         self.waitForKey('1')
         self.didStartCounting = True
         self.printCenter(["Aim laser to top left of canvas", "Press 1 when finished", "Press Q to QUIT"])
@@ -41,7 +41,6 @@ class setUpLaser:
         self.waitForKey('1')
         self.bottomRight = [self.motor1StepCount, self.motor2StepCount]
         self.writeCustomScreenSettingsToFile()
-
 
     def writeCustomScreenSettingsToFile(self):
         print("Writing custom screen")
@@ -55,7 +54,6 @@ class setUpLaser:
             response = self.inputHandler(char, key)
             if response == "finished":
                 break
-
 
     def setupCurses(self):
 
@@ -71,7 +69,8 @@ class setUpLaser:
         dims = self.screen.getmaxyx()
         self.screen.clear()
         for x, _ in enumerate(message):
-            self.screen.addstr(int(int(dims[0]) / 2 - 1 + x), int(int(dims[1]) / 2) - int(len(message[x])/2), message[x])
+            self.screen.addstr(int(int(dims[0]) / 2 - 1 + x), int(int(dims[1]) / 2) - int(len(message[x]) / 2),
+                               message[x])
         self.screen.refresh()
 
     def endCurses(self):
@@ -81,9 +80,25 @@ class setUpLaser:
         curses.echo()
         curses.endwin()
 
+    def takeXSteps(self, motor, direction, x):
+        for _ in range(0, x):
+            if motor == 1:
+                self.motorStepSequence1 = self.laserPi.takeStep(motor, direction, self.motorStepSequence1)
+                if self.didStartCounting:
+                    if direction == 0:
+                        self.motor1StepCount += 1
+                    else:
+                        self.motor1StepCount -= 1
+            if motor == 2:
+                self.motorStepSequence2 = self.laserPi.takeStep(motor, direction, self.motorStepSequence2)
+                if self.didStartCounting:
+                    if direction == 0:
+                        self.motor2StepCount += 1
+                    else:
+                        self.motor2StepCount -= 1
 
-    def takeXSteps(self, x):
     def inputHandler(self, char, key):
+        xSteps = 5
         if char == ord(key):
             self.endCurses()
             return "finished"
@@ -98,31 +113,14 @@ class setUpLaser:
         if char == ord('e'):
             self.laserPi.laser(False)
         elif char == curses.KEY_RIGHT:
-            # self.screen.addstr(0, 0, 'right ')
-            if self.didStartCounting:
-                self.motor2StepCount -= 1
-            self.motorStepSequence1 = self.laserPi.takeStep(2, 1, self.motorStepSequence1)
+            self.takeXSteps(2, 1, xSteps)
         elif char == curses.KEY_LEFT:
-            if self.didStartCounting:
-                self.motor2StepCount += 1
-            # self.screen.addstr(0, 0, 'left ')
-            self.motorStepSequence1 = self.laserPi.takeStep(2, 0, self.motorStepSequence1)
+            self.takeXSteps(2, 0, xSteps)
         elif char == curses.KEY_UP:
-            if self.didStartCounting:
-                self.motor1StepCount += 1
-            # self.screen.addstr(0, 0, 'up ')
-            self.motorStepSequence2 = self.laserPi.takeStep(1, 1, self.motorStepSequence2)
+            self.takeXSteps(1, 1, xSteps)
         elif char == curses.KEY_DOWN:
-            if self.didStartCounting:
-                self.moto12StepCount -= 1
-            # self.screen.addstr(0, 0, 'down ')
-            self.motorStepSequence2 = self.laserPi.takeStep(1, 0, self.motorStepSequence2)
-        self.printCenter(["Step1: ", self.motor1StepCount, " Step2: ", self.motor2StepCount)
-
-
-
-
-
+            self.takeXSteps(1, 0, xSteps)
+        self.printCenter(["Step1: ", self.motor1StepCount, " Step2: ", self.motor2StepCount])
 
 
 startSetup = setUpLaser()
