@@ -120,7 +120,7 @@ class setUpLaser:
             self.takeXSteps(1, 1, xSteps)
         elif char == curses.KEY_DOWN:
             self.takeXSteps(1, 0, xSteps)
-        self.printCenter(["Step1: ", str(self.motor1StepCount), " Step2: ", self.motor2StepCount])
+        self.printCenter(["Step1: ", str(self.motor1StepCount), " Step2: ", str(self.motor2StepCount)])
 
 
 startSetup = setUpLaser()
