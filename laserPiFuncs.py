@@ -34,7 +34,7 @@ class laserPi:
 
     def loadSettings(self):
         f = open("ScreenConfig.txt", "r")
-        canvasMap = f.read()
+        canvasMap = f.read().splitlines()
         print(canvasMap)
 
 
