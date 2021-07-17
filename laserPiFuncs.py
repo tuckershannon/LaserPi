@@ -29,7 +29,7 @@ class StepperMotor:
 
 
 
-    def takeStep(self, stepForward):
+    def takeStep(self, dir):
         for pin in range(4):
             xpin = self.stepPins[pin]
             if self.seq[self.seqStep][pin] != 0:
@@ -39,7 +39,7 @@ class StepperMotor:
                 i = 1
                 GPIO.output(xpin, False)
         sleep(0.001)
-        if stepForward:
+        if dir == 1:
             self.nSteps += 1
             if self.seqStep == 7:
                 self.seqStep = 0
