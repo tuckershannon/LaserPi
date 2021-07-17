@@ -28,7 +28,7 @@ class StepperMotor:
         GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
         for pin in self.stepPins:
-            i = 1
+            print(pin)
             GPIO.setup(pin, GPIO.OUT)
             GPIO.output(pin, False)
 
