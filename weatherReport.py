@@ -9,7 +9,7 @@ https://www.youtube.com/watch?v=Ll1u_rkKWxM&t=2s
 
 
 
-
+import RPi.GPIO as GPIO
 import numpy as np
 from time import sleep
 import math
