@@ -84,7 +84,7 @@ class laserPi:
 
     def setUpPins(self):
         GPIO.setwarnings(False)
-        GPIO.cleanup()
+        # GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.laserPin, GPIO.OUT)
 
