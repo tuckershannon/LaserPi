@@ -178,7 +178,7 @@ currentDY = math.sin(radPerStep) / math.cos(currentPhi)
 while True:
     for lol in range(0,len(messages)):
         startX = 0
-        letterStart = 0.0
+        letterStart = 0.1
         startPosition = -(((0.4 / 2.5) *  ((float(len(list(messages[lol])))/2.0))))
         for letter in list(messages[lol]):
             currentXLetter = 0.0
