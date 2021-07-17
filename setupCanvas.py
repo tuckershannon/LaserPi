@@ -95,7 +95,7 @@ class setUpLaser:
             if motor == 2 and direction == 0:
                 self.laserPi.motor2.takeStep(0)
             if motor == 2 and direction == 1:
-                self.laserPi.motor1.takeStep(1)
+                self.laserPi.motor2.takeStep(1)
 
 
     def inputHandler(self, char, key):
