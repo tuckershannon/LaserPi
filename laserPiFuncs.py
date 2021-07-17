@@ -10,7 +10,9 @@ import math
 
 class StepperMotor:
     def __init__(self, stepPins):
+        print("setup " + stepPins)
         self.stepPins = stepPins
+
         self.stepsPerRev = 4076
         self.nSteps = 0
         self.theta = 0
