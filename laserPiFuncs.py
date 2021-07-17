@@ -27,13 +27,7 @@ class StepperMotor:
                     [1, 0, 0, 1]]
         self.seqStep = 0
 
-        # GPIO.setwarnings(False)
-        # GPIO.cleanup()
-        GPIO.setmode(GPIO.BCM)
-        for pin in self.stepPins:
-            print(pin)
-            GPIO.setup(pin, GPIO.OUT)
-            GPIO.output(pin, False)
+  0
 
     def takeStep(self, stepForward):
         for pin in range(4):
@@ -84,14 +78,18 @@ class laserPi:
 
     def setUpPins(self):
         GPIO.setwarnings(False)
-        # GPIO.cleanup()
+        GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.laserPin, GPIO.OUT)
+        for pin in [self.motor1.stepPins]:
+            GPIO.setup(pin, GPIO.OUT)
+        for pin in [self.motor2.stepPins]:
+            GPIO.setup(pin, GPIO.OUT)
 
     def laser(self, onOff):
         if onOff:
             i = 1
-            GPIO.output(14, True)
+            GPIO.output(self.laserPin, True)
         else:
             i = 1
-            GPIO.output(14, False)
+            GPIO.output(self.laserPin, False)
