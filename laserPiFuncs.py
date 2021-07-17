@@ -27,7 +27,7 @@ class StepperMotor:
                     [1, 0, 0, 1]]
         self.seqStep = 0
 
-  0
+
 
     def takeStep(self, stepForward):
         for pin in range(4):
