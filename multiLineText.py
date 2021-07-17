@@ -20,7 +20,12 @@ from datetime import datetime
 
 
 #Enter your message(s) here
-messages = ["This is","multi-line", "text"]
+# messages = ["This is","multi-line", "text"]
+messages = []
+n = len(sys.argv)
+for i in range(1, n):
+    messages.append(sys.argv[i])
+
 
 GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
