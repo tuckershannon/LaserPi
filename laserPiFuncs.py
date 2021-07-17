@@ -24,8 +24,8 @@ class StepperMotor:
                     [1, 0, 0, 1]]
         self.seqStep = 0
 
-        GPIO.setwarnings(False)
-        GPIO.cleanup()
+        # GPIO.setwarnings(False)
+        # GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
         for pin in self.stepPins:
             print(pin)
