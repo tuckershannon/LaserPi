@@ -16,10 +16,7 @@ class setUpLaser:
     # get the curses screen window
     screen = curses.initscr()
 
-    yMotorStepCount = 0
-    xMotorStepCount = 0
-    motorStepSequence1 = 0
-    motorStepSequence2 = 0
+
     didStartCounting = False
 
     topLeft = [0, 0]
@@ -91,20 +88,15 @@ class setUpLaser:
 
     def takeXSteps(self, motor, direction, x):
         for _ in range(0, x):
-            if motor == 1:
-                self.motorStepSequence1 = self.laserPi.takeStep(motor, direction, self.motorStepSequence1)
-                if self.didStartCounting:
-                    if direction == 0:
-                        self.yMotorStepCount -= 1
-                    else:
-                        self.yMotorStepCount += 1
-            if motor == 2:
-                self.motorStepSequence2 = self.laserPi.takeStep(motor, direction, self.motorStepSequence2)
-                if self.didStartCounting:
-                    if direction == 0:
-                        self.xMotorStepCount -= 1
-                    else:
-                        self.xMotorStepCount += 1
+            if motor == 1 and direction == 0:
+                self.laserPi.motor1.takeStep(0)
+            if motor == 1 and direction == 1:
+                self.laserPi.motor1.takeStep(1)
+            if motor == 2 and direction == 0:
+                self.laserPi.motor2.takeStep(0)
+            if motor == 2 and direction == 1:
+                self.laserPi.motor1.takeStep(1)
+
 
     def inputHandler(self, char, key):
         xSteps = 5
@@ -122,13 +114,13 @@ class setUpLaser:
         if char == ord('e'):
             self.laserPi.laser(False)
         elif char == curses.KEY_RIGHT:
-            self.takeXSteps(2, 1, xSteps)
+            self.takeXSteps(2,1,xSteps)
         elif char == curses.KEY_LEFT:
-            self.takeXSteps(2, 0, xSteps)
+            self.takeXSteps(2,0,xSteps)
         elif char == curses.KEY_UP:
-            self.takeXSteps(1, 1, xSteps)
+            self.takeXSteps(1,1,xSteps)
         elif char == curses.KEY_DOWN:
-            self.takeXSteps(1, 0, xSteps)
+            self.takeXSteps(1,0,xSteps)
 
 
 startSetup = setUpLaser()

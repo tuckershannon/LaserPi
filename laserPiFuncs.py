@@ -1,34 +1,66 @@
 import RPi.GPIO as GPIO
-import numpy as np
+# import numpy as np
 from time import sleep
 import math
-import sys
-from datetime import datetime
+# import sys
+# from datetime import datetime
 
 
+
+class StepperMotor:
+    def __init__(self, stepPins):
+        self.stepPins = stepPins
+        self.stepsPerRev = 4076
+        self.nSteps = 0
+        self.theta = 0
+        self.seq = [[1, 0, 0, 0],
+                    [1, 1, 0, 0],
+                    [0, 1, 0, 0],
+                    [0, 1, 1, 0],
+                    [0, 0, 1, 0],
+                    [0, 0, 1, 1],
+                    [0, 0, 0, 1],
+                    [1, 0, 0, 1]]
+        self.seqStep = 0
+        for pin in self.stepPins:
+            i = 1
+            GPIO.setup(pin, GPIO.OUT)
+            GPIO.output(pin, False)
+
+    def takeStep(self, stepForward):
+        for pin in range(4):
+            xpin = self.StepPins2[pin]
+            if self.seq[self.seqStep][pin] != 0:
+                i = 1
+                GPIO.output(xpin, True)
+            else:
+                i = 1
+                GPIO.output(xpin, False)
+        sleep(0.001)
+        if stepForward:
+            self.nSteps += 1
+            if self.seqStep == 7:
+                self.seqStep = 0
+            else:
+                self.seqStep += 1
+        else:
+            self.nSteps -= 1
+
+            if self.seqStep == 0:
+                self.seqStep = 7
+            else:
+                self.seqStep -= 1
+
+        self.theta = float(self.nSteps) / float(self.stepsPerRev) * 2.0 * math.pi
 
 class laserPi:
     # GPIO Pin numbbers (BCM)
-    StepPins = [4, 17, 27, 22]
-    StepPins2 = [5, 6, 13, 19]
+
+    motor1 = StepperMotor([4, 17, 27, 22])
+    motor2 = StepperMotor([5, 6, 13, 19])
+
     laserPin = 14
 
-    StepCount1 = 8
-    Seq = []
-    Seq = range(0, StepCount1)
-
-    # Stepper motor sequence
-    Seq[0] = [1, 0, 0, 0]
-    Seq[1] = [1, 1, 0, 0]
-    Seq[2] = [0, 1, 0, 0]
-    Seq[3] = [0, 1, 1, 0]
-    Seq[4] = [0, 0, 1, 0]
-    Seq[5] = [0, 0, 1, 1]
-    Seq[6] = [0, 0, 0, 1]
-    Seq[7] = [1, 0, 0, 1]
-
-    stepsPerRev = 4096
-    nSteps = range(0, 2)
 
     xLimits = [0, 0]
     yLimits = [0, 0]
@@ -36,63 +68,24 @@ class laserPi:
     def loadSettings(self):
         f = open("ScreenConfig.txt", "r")
         canvasMap = f.read().splitlines()
-        self.xLimits = [canvasMap[0],canvasMap[1]]
+        self.xLimits = [canvasMap[0], canvasMap[1]]
         self.yLimits = [canvasMap[2], canvasMap[3]]
         print(self.xLimits)
         print(self.yLimits)
 
-
     def setUpPins(self):
+        i = 1
         GPIO.setwarnings(False)
         GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.laserPin, GPIO.OUT)
-        for pin in self.StepPins:
-            GPIO.setup(pin, GPIO.OUT)
-            GPIO.output(pin, False)
-        for pin in self.StepPins2:
-            GPIO.setup(pin, GPIO.OUT)
-            GPIO.output(pin, False)
+
 
     def laser(self, onOff):
         if onOff:
+            i = 1
             GPIO.output(14, True)
         else:
+            i = 1
             GPIO.output(14, False)
 
-    def takeStep(self, motor, direction, seqStep):
-        if (motor == 1):
-            for pin in range(4):
-                xpin = self.StepPins2[pin]
-                if self.Seq[seqStep][pin] != 0:
-                    GPIO.output(xpin, True)
-                else:
-                    GPIO.output(xpin, False)
-        elif (motor == 2):
-            for pin in range(4):
-                xpin = self.StepPins[pin]
-                if self.Seq[seqStep][pin] != 0:
-                    GPIO.output(xpin, True)
-                else:
-                    GPIO.output(xpin, False)
-        sleep(0.001)
-
-        if (direction == 1):
-            if (motor == 2):
-                self.nSteps[0] = self.nSteps[0] + 1
-            if (motor == 1):
-                self.nSteps[1] = self.nSteps[1] + 1
-            if (seqStep == 7):
-                return 0
-            else:
-                return seqStep + 1
-        else:
-            if (motor == 2):
-               self. nSteps[0] = self.nSteps[0] - 1
-            if (motor == 1):
-                self.nSteps[1] = self.nSteps[1] - 1
-
-            if (seqStep == 0):
-                return 7
-            else:
-                return seqStep - 1
