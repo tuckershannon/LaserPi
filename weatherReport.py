@@ -9,44 +9,44 @@ https://www.youtube.com/watch?v=Ll1u_rkKWxM&t=2s
 
 
 
-# import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 import numpy as np
 from time import sleep
 import math
 import sys
 from datetime import datetime
-# from weather import Weather
-# weather = Weather()
-#
-# GPIO.setwarnings(False)
-# GPIO.cleanup()
-# GPIO.setmode(GPIO.BCM)
+from weather import Weather
+weather = Weather()
+
+GPIO.setwarnings(False)
+GPIO.cleanup()
+GPIO.setmode(GPIO.BCM)
 
 StepPins = [4,17,27,22]
 StepPins2 = [5,6,13,19]
 
 weatherConditions = {'1':'a', '2':'h','3':'a','4':'a','5':'b','6':'b','7':'b','8':'b','9':'b','10':'b','11':'b','12':'b','13':'c','14':'c','15':'c','16':'c','17':'c','18':'c','19':'h','20':'h','21':'g','22':'g','23':'h','24':'h','25':'c','26':'e','27':'e','28':'g','29':'e','30':'g','31':'f','32':'d','33':'f','34':'d','35':'b','36':'d','37':'a','38':'a','39':'a','40':'b','41':'c','42':'c','43':'c','44':'e','45':'a','46':'c','47':'a'}
 
-# for pin in StepPins:
-#   GPIO.setup(pin,GPIO.OUT)
-#   GPIO.output(pin, False)
+for pin in StepPins:
+  GPIO.setup(pin,GPIO.OUT)
+  GPIO.output(pin, False)
 
-# for pin in StepPins2:
-#   GPIO.setup(pin,GPIO.OUT)
-#   GPIO.output(pin, False)
-#
-# GPIO.setup(14,GPIO.OUT)
+for pin in StepPins2:
+  GPIO.setup(pin,GPIO.OUT)
+  GPIO.output(pin, False)
+
+GPIO.setup(14,GPIO.OUT)
 StepCount1 = 8
 Seq = []
-# Seq = range(0, StepCount1)
-Seq.append([1,0,0,0])
-Seq.append([1,1,0,0])
-Seq.append([0,1,0,0])
-Seq.append([0,1,1,0])
-Seq.append([0,0,1,0])
-Seq.append([0,0,1,1])
-Seq.append([0,0,0,1])
-Seq.append([1,0,0,1])
+Seq = range(0, StepCount1)
+Seq[0] = [1,0,0,0]
+Seq[1] = [1,1,0,0]
+Seq[2] = [0,1,0,0]
+Seq[3] = [0,1,1,0]
+Seq[4] = [0,0,1,0]
+Seq[5] = [0,0,1,1]
+Seq[6] = [0,0,0,1]
+Seq[7] = [1,0,0,1]
 
 
 nSteps = range(0,2)
@@ -115,28 +115,26 @@ def readDict(fileName):
 
 
 def laser(onOff):
-    print("")
-    # if onOff:
-    #     GPIO.output(14,True)
-    # else:
-    #     GPIO.output(14,False)
+    if onOff:
+        GPIO.output(14,True)
+    else:
+        GPIO.output(14,False)
 
 def takeStep(motor,direction,seqStep):
         if (motor == 1):
             for pin in range(0, 4):
                 xpin = StepPins2[pin]
-                # if Seq[seqStep][pin]!=0:
-                #
-                #     GPIO.output(xpin, True)
-                # else:
-                #     GPIO.output(xpin, False)
+                if Seq[seqStep][pin]!=0:
+                    GPIO.output(xpin, True)
+                else:
+                    GPIO.output(xpin, False)
         elif (motor == 2):
             for pin in range(0, 4):
                 xpin = StepPins[pin]
-                # if Seq[seqStep][pin]!=0:
-                #     GPIO.output(xpin, True)
-                # else:
-                #     GPIO.output(xpin, False)
+                if Seq[seqStep][pin]!=0:
+                    GPIO.output(xpin, True)
+                else:
+                    GPIO.output(xpin, False)
 
         sleep(0.001)
 
@@ -164,9 +162,9 @@ def takeStep(motor,direction,seqStep):
 
 
 
-weatherDict = readDict('weather.cxf')
+weatherDict = readDict('/home/pi/LaserPi/weather.cxf')
 
-def main():
+def main(weatherCode):
     seqStepY = 0
     seqStepX = 0
     radPerStep = (2.0 * math.pi)/4076.0;
@@ -176,9 +174,9 @@ def main():
     currentY = 0.0;
     currentDX = math.sin(radPerStep) / math.cos(currentTheta)
     currentDY = math.sin(radPerStep) / math.cos(currentPhi)
-    # lookup = weather.lookup(weatherCode)
-    # condition = lookup.condition
-    messages = ["99" + "o" + weatherConditions['1']]
+    lookup = weather.lookup(weatherCode)
+    condition = lookup.condition
+    messages = [condition.temp+"o"+weatherConditions[condition.code]]
     for lol in range(0,len(messages)):
         startX = 0
         letterStart = 0.0
@@ -245,9 +243,8 @@ def main():
 
 
     for pin in range(0,4):
-        print("")
-        # GPIO.output(StepPins[pin],False)
-        # GPIO.output(StepPins2[pin],False)
+        GPIO.output(StepPins[pin],False)
+        GPIO.output(StepPins2[pin],False)
 
 if __name__ == "__main__":
     main()

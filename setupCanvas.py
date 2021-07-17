@@ -89,13 +89,13 @@ class setUpLaser:
     def takeXSteps(self, motor, direction, x):
         for _ in range(0, x):
             if motor == 1 and direction == 0:
-                self.laserPi.motor1.takeStep(0)
+                self.laserPi.xMotor.takeStep(0)
             if motor == 1 and direction == 1:
-                self.laserPi.motor1.takeStep(1)
+                self.laserPi.xMotor.takeStep(1)
             if motor == 2 and direction == 0:
-                self.laserPi.motor2.takeStep(0)
+                self.laserPi.yMotor.takeStep(0)
             if motor == 2 and direction == 1:
-                self.laserPi.motor2.takeStep(1)
+                self.laserPi.yMotor.takeStep(1)
 
 
     def inputHandler(self, char, key):

@@ -57,7 +57,7 @@ Seq[7] = [1,0,0,1]
 
 nSteps = range(0,2)
 
-with open('cursive.cxf', 'r') as myFile:
+with open('font.cxf', 'r') as myFile:
     data = myFile.readlines()
 
 cordDict = {}

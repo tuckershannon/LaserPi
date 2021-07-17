@@ -60,8 +60,8 @@ class laserPi:
     # GPIO Pin numbbers (BCM)
 
     def __init__(self):
-        self.motor1 = StepperMotor([5, 6, 13, 19])
-        self.motor2 = StepperMotor([4, 17, 27, 22])
+        self.xMotor = StepperMotor([5, 6, 13, 19])
+        self.yMotor = StepperMotor([4, 17, 27, 22])
 
 
     laserPin = 14
