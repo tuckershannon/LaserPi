@@ -2,9 +2,10 @@ import RPi.GPIO as GPIO
 # import numpy as np
 from time import sleep
 import math
+
+
 # import sys
 # from datetime import datetime
-
 
 
 class StepperMotor:
@@ -22,6 +23,11 @@ class StepperMotor:
                     [0, 0, 0, 1],
                     [1, 0, 0, 1]]
         self.seqStep = 0
+
+        GPIO.setwarnings(False)
+        GPIO.cleanup()
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(self.laserPin, GPIO.OUT)
         for pin in self.stepPins:
             i = 1
             GPIO.setup(pin, GPIO.OUT)
@@ -53,6 +59,7 @@ class StepperMotor:
 
         self.theta = float(self.nSteps) / float(self.stepsPerRev) * 2.0 * math.pi
 
+
 class laserPi:
     # GPIO Pin numbbers (BCM)
 
@@ -60,7 +67,6 @@ class laserPi:
     motor2 = StepperMotor([5, 6, 13, 19])
 
     laserPin = 14
-
 
     xLimits = [0, 0]
     yLimits = [0, 0]
@@ -74,12 +80,10 @@ class laserPi:
         print(self.yLimits)
 
     def setUpPins(self):
-        i = 1
         GPIO.setwarnings(False)
         GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(self.laserPin, GPIO.OUT)
-
 
     def laser(self, onOff):
         if onOff:
@@ -88,4 +92,3 @@ class laserPi:
         else:
             i = 1
             GPIO.output(14, False)
-
