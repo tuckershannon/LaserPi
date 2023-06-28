@@ -35,21 +35,9 @@ for pin in StepPins2:
 
 GPIO.setup(14,GPIO.OUT)
 StepCount1 = 8
-Seq = []
-Seq = range(0, StepCount1)
-Seq[0] = [1,0,0,0]
-Seq[1] = [1,1,0,0]
-Seq[2] = [0,1,0,0]
-Seq[3] = [0,1,1,0]
-Seq[4] = [0,0,1,0]
-Seq[5] = [0,0,1,1]
-Seq[6] = [0,0,0,1]
-Seq[7] = [1,0,0,1]
+Seq = [[1,0,0,0], [1,1,0,0], [0,1,0,0], [0,1,1,0], [0,0,1,0], [0,0,1,1], [0,0,0,1], [1,0,0,1]]
 
-
-nSteps = range(0,2)
-
-
+nSteps = [0, 0]
 
 
 def readDict(fileName):
